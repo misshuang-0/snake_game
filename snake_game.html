@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>贪吃蛇5</title>
+    <style>
+        .container {
+            width: 620px;
+            height: 620px;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .container .gameBox {
+            width: 600px;
+            height: 600px;
+            background: #6565bb;
+            border: 10px solid rgb(58, 46, 90);
+            position: relative;
+        }
+
+        .startBox,
+        .pauseBox {
+            width: 620px;
+            height: 620px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.308);
+        }
+
+        .startBox .startList {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 162px;
+            border-radius: 10px;
+        }
+
+        .startBox .startList .startBtn,
+        .startBox .startList .primary,
+        .startBox .startList .middle,
+        .startBox .startList .high {
+            width: 150px;
+            height: 30px;
+            background: rgb(243, 248, 199);
+            border-radius: 10px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(58, 46, 90);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .startBox .startList .startBtn {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .startBox .startList .startBtn:hover,
+        .startBox .startList .primary:hover,
+        .startBox .startList .middle:hover,
+        .startBox .startList .high:hover {
+            background: rgb(241, 220, 135);
+        }
+
+        .pauseBox {
+            display: none;
+        }
+
+        .pauseBox .pauseBtn {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: url(./img/播放.png) 100%/100% no-repeat;
+            cursor: pointer;
+        }
+        .pauseBox .pauseBtn:hover{
+            background: url(./img/播放2.png) 100%/100% no-repeat;
+        }
+        .pauseBox .getBack{
+            position: absolute;
+            top: 10px;
+            right:10px;
+            width: 60px;
+            height: 20px;
+            background: rgb(141, 211, 141);
+            color: rgb(62, 57, 112);
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 4px;
+        }
+        .pauseBox .getBack:hover{
+            background: rgb(185, 218, 158);
+        }
+
+        .snakeHead {
+            border-radius: 6px 10px 10px 6px;
+            background: yellow;
+        }
+
+        .snakeBody {
+            background: orange;
+            border-radius: 50%;
+        }
+
+        .food {
+            background: url(./img/苹果.png) 100%/100% no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="gameBox"></div>
+        <div class="startBox">
+            <div class="startList">
+                <div class="startBtn">开 始 游 戏</div>
+                <div class="primary">初 级</div>
+                <div class="middle">中 级</div>
+                <div class="high">高 级</div>
+            </div>
+        </div>
+        <div class="pauseBox">
+            <div class="pauseBtn"></div>
+            <div class="getBack">重新开始</div>
+        </div>
+    </div>
+
+    <script src="./js/snake_game.js"></script>
+</body>
+
+</html>
