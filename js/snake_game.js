@@ -1,21 +1,21 @@
 var gameBox = document.getElementsByClassName('gameBox')[0],            //游戏盒子，主要游戏场所，蛇和食物都在此内生成
-            startBox = document.getElementsByClassName('startBox')[0],  //游戏开始盒子，包含了开始游戏等按钮菜单
-            startBtn = startBox.getElementsByClassName('startBtn')[0],  //开始游戏按钮
-            primary = startBox.getElementsByClassName('primary')[0],    //初级按钮
-            middle = startBox.getElementsByClassName('middle')[0],      //中级按钮
-            high = startBox.getElementsByClassName('high')[0],          //高级按钮
-            pauseBox = document.getElementsByClassName('pauseBox')[0],  //暂停盒子，包含了暂停按钮和重新开始按钮
-            getBack = pauseBox.getElementsByClassName('getBack')[0],    //重新开始按钮
-            pauseBtn = pauseBox.getElementsByClassName('pauseBtn')[0];  //暂停按钮
+    startBox = document.getElementsByClassName('startBox')[0],  //游戏开始盒子，包含了开始游戏等按钮菜单
+    startBtn = startBox.getElementsByClassName('startBtn')[0],  //开始游戏按钮
+    primary = startBox.getElementsByClassName('primary')[0],    //初级按钮
+    middle = startBox.getElementsByClassName('middle')[0],      //中级按钮
+    high = startBox.getElementsByClassName('high')[0],          //高级按钮
+    pauseBox = document.getElementsByClassName('pauseBox')[0],  //暂停盒子，包含了暂停按钮和重新开始按钮
+    getBack = pauseBox.getElementsByClassName('getBack')[0],    //重新开始按钮
+    pauseBtn = pauseBox.getElementsByClassName('pauseBtn')[0];  //暂停按钮
 
         var sw = 20,    //一个方块的宽
             sh = 20,    //一个方块的高
-            tr = 30,    //行数
-            td = 30;    //列数
+            tr = 30,    //游戏行数
+            td = 30;    //游戏列数
 
         //方块的构造函数，用来创建蛇头、蛇身、食物
         function Square(x, y, classname) {
-            //xy表示方块的坐标，classname表示给该方块的样式
+            //x，y表示方块的坐标，classname表示给该方块的样式
             //传进来的参数乘以20得到该位置的坐标值
             this.x = x * sw;
             this.y = y * sh;
@@ -239,9 +239,9 @@ var gameBox = document.getElementsByClassName('gameBox')[0],            //游戏
 
         // 游戏逻辑
         function Game(){
-            this.time;          //定时器
+            this.time;          //定时器，控制蛇的行走
             this.score = 0;     //得分
-            this.n;             //速度
+            this.n;             //蛇的行走速度
         }
         // 游戏初始化
         Game.prototype.init = function(n){
@@ -268,14 +268,13 @@ var gameBox = document.getElementsByClassName('gameBox')[0],            //游戏
             this.start();
         
         }
-        
+        // 开始游戏函数
         Game.prototype.start = function(){
-            n = this.n;     //给一个速度
             // 设置定时器，每隔 n 毫秒执行一次
-            this.time = setInterval(function(){
+            this.time = setInterval(()=>{
                 // 蛇身前进
                 snake.getNextPoz();
-            },n)
+            },this.n)   // 默认是初始速度
         }
         // 游戏结束函数
         Game.prototype.over = function(){
@@ -296,32 +295,32 @@ var gameBox = document.getElementsByClassName('gameBox')[0],            //游戏
         
         // 游戏实例对象
         var game = new Game();
+
+        // 让游戏跑起来，并隐藏开始盒子
+        function runGame(n){
+            game.n = n;     // 设置游戏速度
+            game.init();    //游戏初始化
+            startBox.style.display = 'none';    //开始游戏盒子隐藏
+        }
         
         //开始按钮，开始游戏
         startBtn.onclick = function(){
-            game.n = 200;   //游戏初始速度
-            game.init();    //游戏初始化
-            startBox.style.display = 'none';    //开始游戏盒子隐藏
+            runGame(200);   //游戏初始速度  同中级速度
         };
         //初级
         primary.onclick = function(){
-            game.n = 500;   //初级速度
-            game.init();    
-            startBox.style.display = 'none';    //开始游戏盒子隐藏
+            runGame(500);   //初级速度
         }
         //中级
         middle.onclick = function(){
-            game.n = 200;   //中级速度
-            game.init();
-            startBox.style.display = 'none';    
+            runGame(200);   //中级速度   
         }
         //高级
         high.onclick = function(){
-            game.n = 70;    //高级速度
-            game.init();
-            startBox.style.display = 'none';
+            runGame(70);   //高级速度
         }
-        //暂停
+
+        //暂停游戏
         gameBox.onclick = function(){
             // 清楚定时器
             clearInterval(game.time);
